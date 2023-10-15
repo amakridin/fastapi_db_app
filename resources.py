@@ -1,7 +1,5 @@
 from aiopg.sa import create_engine, Engine
 
-from src.infra.repositories.db.db_base import DBBaseRepository
-
 
 class Resources:
     def __init__(self, engine: Engine):

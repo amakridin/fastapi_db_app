@@ -1,20 +1,15 @@
 import logging
 
 from functools import partial
+from typing import Optional
 
-import uvicorn
-from aiopg.sa import create_engine
-from fastapi import (
-    Depends,
-    FastAPI,
-)
+from fastapi import FastAPI
 from fastapi.exceptions import RequestValidationError
 
 from pydantic import BaseSettings, ValidationError
 from starlette import status
 
 from resources import Resources
-from src.apps.api.dependencies import validate_api_key
 from src.apps.api.v1.exception_handlers import (
     ErrorResponseModel,
     internal_exception_handler,
@@ -27,6 +22,7 @@ logger = logging.getLogger(__name__)
 
 
 class Settings(BaseSettings):
+    host: str = "localhost"
     port: int = 8001
     service_name: str = "user-service"
     api_key: str = "admin-api-key"
@@ -39,12 +35,13 @@ class Settings(BaseSettings):
     pg_min_pool_size: int = 5
     pg_max_pool_size: int = 20
 
-    # class Config:
-    #     env_file = "local.env"
+    class Config:
+        env_file = "local.env"
 
 
-def create_app(settings: Settings) -> FastAPI:
+def create_app(settings: Optional[Settings] = None) -> FastAPI:
     # App
+    settings = settings or Settings()
     app = FastAPI(
         title="user-service",
         version="v1",
