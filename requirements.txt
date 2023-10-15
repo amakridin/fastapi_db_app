@@ -5,6 +5,7 @@ black
 isort
 autoflake
 uvicorn~=0.23.2
+gunicorn==21.2.0
 pydantic~=1.10.12
 starlette~=0.19.1
 pyjwt==2.8.0

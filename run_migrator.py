@@ -1,7 +1,7 @@
 import asyncio
 
 from resources import Resources
-from src.apps.api.v1.app import Settings
+from src.apps.api.app import Settings
 
 
 async def run() -> None:

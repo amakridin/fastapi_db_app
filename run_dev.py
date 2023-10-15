@@ -1,6 +1,6 @@
 import uvicorn
 
-from src.apps.api.v1.app import Settings, create_app
+from src.apps.api.app import Settings, create_app
 
 if __name__ == "__main__":
     settings = Settings()
