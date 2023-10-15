@@ -8,6 +8,10 @@ apt install make
 ```bash
 make start-env
 ```
+Postgres and PgAdmin will be available. To access pgadmin see docker-compose file: \
+http://localhost:5050 \
+login - mail@me.com \
+password - admin
 
 ### Run migrations
 ```bash
@@ -18,10 +22,6 @@ python3 run_migrator.py
 ```bash
 python3 run_dev.py
 ```
-Postgres and PgAdmin will be available. To access pgadmin see docker-compose file: \
-http://localhost:5050 \
-login - mail@me.com \
-password - admin
 
 ### Run prod
 Before launching prodaction - update variables in config file - local.env
