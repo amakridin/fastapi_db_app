@@ -31,6 +31,7 @@ class Settings(BaseSettings):
     service_name: str = "user-service"
     api_key: str = "admin-api-key"
     jwt_secret_key = "access-secret-key"
+    jwt_token_ttl = 0
     gateway_timeout_s: int = 2
     db_schema: str = "public"
     bot_schema_prefix: str = "bot_"

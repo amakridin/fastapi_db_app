@@ -50,7 +50,10 @@ async def validate_token(
 ) -> None:
     if not token:
         raise MissingTokenException
-    token_manager = JWTManager(secret_ket=request.app.settings.jwt_secret_key)
+    token_manager = JWTManager(
+        secret_key=request.app.settings.jwt_secret_key,
+        ttl=request.app.settings.jwt_token_ttl,
+    )
     try:
         token_info = JwtTokenModel(**token_manager.decode(token))
     except ExpiredSignatureError:
@@ -63,14 +66,15 @@ async def validate_token(
 
 def db_user_repo_dependency(request: Request):
     return DBUserRepository(
-        db_schema=request.app.settings.db_schema, engine=request.app.resources.engine
+        db_schema=f"{request.app.settings.bot_schema_prefix}{request.state.bot_id}",
+        engine=request.app.resources.engine,
     )
 
 
 def user_manager_dependency(request: Request):
     return UserManager(
         db_user_repository=DBUserRepository(
-            db_schema=request.app.settings.db_schema,
+            db_schema=f"{request.app.settings.bot_schema_prefix}{request.state.bot_id}",
             engine=request.app.resources.engine,
         )
     )
@@ -90,7 +94,7 @@ def bot_manager_dependency(request: Request):
         ),
         jwt_manager=JWTManager(
             secret_key=request.app.settings.jwt_secret_key,
-            ttl=0,
+            ttl=request.app.settings.jwt_token_ttl,
         ),
         schema_prefix=request.app.settings.bot_schema_prefix,
     )
