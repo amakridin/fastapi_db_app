@@ -1,6 +1,6 @@
 from fastapi import APIRouter, Depends
 
-from src.apps.api.dependencies import bot_manager_dependency
+from src.apps.api.dependencies import bot_manager_dependency, validate_api_key
 from src.core.bots import BotManager
 from src.core.model import CreateBotParams, SuccessResult
 from src.infra.repositories.db.model import Bot
@@ -8,6 +8,7 @@ from src.infra.repositories.db.model import Bot
 router = APIRouter(
     prefix="/bots",
     tags=["bots"],
+    dependencies=[Depends(validate_api_key)],
 )
 
 
