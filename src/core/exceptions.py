@@ -18,17 +18,5 @@ class InvalidApiKeyException(DomainException):
     pass
 
 
-class MissingTokenException(DomainException):
-    pass
-
-
-class InvalidTokenException(DomainException):
-    pass
-
-
-class ExpiredTokenException(DomainException):
-    pass
-
-
 class BotAlreadyExistsException(DomainException):
     pass

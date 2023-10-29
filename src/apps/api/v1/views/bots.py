@@ -20,9 +20,9 @@ async def create_bot(
     return await bot_manager.create_bot(params)
 
 
-@router.delete("/{token}", response_model=str)
+@router.delete("/{bot_id}", response_model=str)
 async def delete_bot(
-    token: str,
+    bot_id: str,
     repo: BotManager = Depends(bot_manager_dependency),
 ) -> SuccessResult():
-    await repo.delete_bot_by_token(token)
+    await repo.delete_bot_by_bot_id(bot_id)

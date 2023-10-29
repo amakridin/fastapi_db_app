@@ -31,10 +31,8 @@ class UpdateUserParams(BaseModel):
 
 class Bot(BaseModel):
     bot_id: str
-    token: str
     date_created: datetime
 
 
 class DBCreateBotParams(BaseModel):
     bot_id: constr(to_lower=True, strip_whitespace=True, regex="^[a-z0-9][a-z0-9-]*$")
-    token: str

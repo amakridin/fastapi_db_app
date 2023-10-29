@@ -1,9 +1,9 @@
-from fastapi import APIRouter, Depends, Query
+from fastapi import APIRouter, Depends, Query, Request
 
 from src.apps.api.dependencies import (
     db_user_repo_dependency,
     user_manager_dependency,
-    validate_token,
+    validate_api_key,
 )
 from src.core.model import Page
 from src.core.users import UserManager
@@ -11,9 +11,9 @@ from src.infra.repositories.db.db_user_repository import DBUserRepository
 from src.infra.repositories.db.model import DBCreateUserParams, UpdateUserParams, User
 
 router = APIRouter(
-    prefix="/user",
+    prefix="/bot/{bot_id}/user",
     tags=["user"],
-    dependencies=[Depends(validate_token)],
+    dependencies=[Depends(validate_api_key)],
 )
 
 
